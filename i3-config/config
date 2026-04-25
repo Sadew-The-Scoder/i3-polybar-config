@@ -1,0 +1,104 @@
+# ==========================================================
+# SADEW'S UPDATED i3 CONFIG (MABOX OPTIMIZED)
+# ==========================================================
+
+
+# Use polybar config too
+
+# Modifier Keys
+set $super Mod4
+set $alt Mod1
+
+# Font
+font pango:JetBrainsMono Nerd Font 10
+
+# Floating modifier
+floating_modifier $super
+
+# --- AUTOSTART ---
+#exec_always --no-startup-id feh --bg-scale ~/Downloads/wallpaper.png
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+#exec_always --no-startup-id picom &
+exec_always --no-startup-id picom --animations false --animation-for-open-window
+exec_always --no-startup-id nm-applet &
+
+# --- APPEARANCE & GAPS ---
+smart_gaps off
+gaps top 48
+gaps inner 10
+default_border pixel 3
+for_window [class=".*"] border pixel 3
+
+# --- KEYBINDINGS ---
+bindsym $super+Return exec kitty 
+bindsym $super+d exec rofi -show drun -show-icons
+bindsym $super+w exec firefox
+bindsym $super+e exec pcmanfm-qt
+bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'xdg-open ~/$f'
+bindsym $super+l exec i3lock -i ~/.lock.png
+
+# Media keys (Audio & Brightness)
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
+bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+# Window Management
+bindsym $super+c kill
+bindsym $super+Shift+c kill
+bindsym $super+f fullscreen toggle
+bindsym $super+space floating toggle
+bindsym $super+Shift+space focus mode_toggle
+
+# Navigation (Focus & Move)
+bindsym $super+Left focus left
+bindsym $super+Down focus down
+bindsym $super+Up focus up
+bindsym $super+Right focus right
+bindsym $super+Shift+Left move left
+bindsym $super+Shift+Down move down
+bindsym $super+Shift+Up move up
+bindsym $super+Shift+Right move right
+
+# Workspaces (Labels 1:I, 2:II style)
+bindsym $super+Control+Right workspace next
+bindsym $super+Control+Left workspace prev
+bindsym $super+1 workspace number 1:I
+bindsym $super+2 workspace number 2:II
+bindsym $super+3 workspace number 3:III
+bindsym $super+4 workspace number 4:IV
+bindsym $super+5 workspace number 5:V
+bindsym $super+6 workspace number 6:VI
+
+bindsym $super+Shift+1 move container to workspace number 1:I
+bindsym $super+Shift+2 move container to workspace number 2:II
+bindsym $super+Shift+3 move container to workspace number 3:III
+bindsym $super+Shift+4 move container to workspace number 4:IV
+bindsym $super+Shift+5 move container to workspace number 5:V
+bindsym $super+Shift+6 move container to workspace number 6:VI
+
+# System Controls
+bindsym $super+BackSpace restart
+bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+# Resize Mode (Fixed Syntax)
+mode "resize" {
+    bindsym Left resize shrink width 5 px or 5 ppt
+    bindsym Down resize grow height 5 px or 5 ppt
+    bindsym Up resize shrink height 5 px or 5 ppt
+    bindsym Right resize grow width 5 px or 5 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $super+r mode "resize"
+
+# Colors (Dracula Theme)
+client.focused          #6272a4 #6272a4 #f8f8f2 #bd93f9   #6272a4
+client.focused_inactive #44475a #44475a #f8f8f2 #44475a   #44475a
+client.unfocused        #282a36 #282a36 #bfbfbf #282a36   #282a36
+client.urgent           #ff5555 #ff5555 #f8f8f2 #ff5555   #ff5555
+
+# Window Rules
+for_window [class=Eog|Sxiv|feh|mpv|Vlc|File-roller|Xarchiver] floating enable
+hide_edge_borders smart
