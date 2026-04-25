@@ -11,8 +11,10 @@ Before installing the configuration, you must install the required packages. Use
 ### 📦 Arch Linux / Manjaro / Mabox
 ```bash
 sudo pacman -S i3-wm polybar picom feh rofi ttf-jetbrains-mono-nerd git
+```
 
 ### 📦 Ubuntu / Debian / Kali / Mint
 ```bash
 sudo apt update
 sudo apt install i3 polybar picom feh rofi fonts-jetbrains-mono git
+```
